@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador de eventos | Colegio Bolívar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    #contador {
+      font-size: 3rem;
+      margin: 1.5rem 0;
+    }
+
+    button {
+      font-size: 1.1rem;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Contador de eventos</h1>
+    <p>Colegio Bolívar</p>
+    <div id="contador" aria-live="polite">0</div>
+    <button id="botonContar" type="button">Registrar click</button>
+  </main>
+
+  <script>
+    let clicks = 0;
+    const contador = document.getElementById("contador");
+    const boton = document.getElementById("botonContar");
+
+    boton.addEventListener("click", () => {
+      clicks += 1;
+      contador.textContent = clicks;
+    });
+  </script>
+</body>
+</html>
