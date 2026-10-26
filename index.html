@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#07111f">
   <title>Contador de eventos | Colegio Bolívar</title>
-
   <style>
     :root {
       color-scheme: dark;
-      --fondo: #07111f;
-      --panel: rgba(13, 27, 46, 0.88);
-      --borde: rgba(148, 178, 210, 0.16);
       --texto: #f2f7fc;
       --texto-suave: #9aacc1;
       --cian: #52e4f5;
-      --azul: #83aaff;
       --rojo: #ff8296;
+      --borde: rgba(148, 178, 210, 0.16);
     }
 
     * {
@@ -36,7 +32,7 @@
         radial-gradient(ellipse at 50% -15%, rgba(52, 112, 183, 0.3), transparent 48%),
         radial-gradient(ellipse at 0% 100%, rgba(20, 143, 164, 0.13), transparent 38%),
         radial-gradient(ellipse at 100% 90%, rgba(92, 93, 191, 0.15), transparent 38%),
-        var(--fondo);
+        #07111f;
     }
 
     body::before {
@@ -54,7 +50,7 @@
     }
 
     .contenedor {
-      width: min(100%, 520px);
+      width: min(100%, 540px);
     }
 
     .encabezado {
@@ -123,8 +119,7 @@
       position: relative;
       overflow: hidden;
       padding: clamp(26px, 7vw, 42px);
-      background:
-        linear-gradient(145deg, rgba(17, 35, 58, 0.96), rgba(10, 22, 39, 0.96));
+      background: linear-gradient(145deg, rgba(17, 35, 58, 0.96), rgba(10, 22, 39, 0.96));
       border: 1px solid var(--borde);
       border-radius: 26px;
       box-shadow:
@@ -157,17 +152,49 @@
       font-size: clamp(1.8rem, 6vw, 2.35rem);
       letter-spacing: -0.045em;
       line-height: 1.15;
+      overflow-wrap: anywhere;
     }
 
     .descripcion {
-      margin: 12px 0 28px;
+      margin: 12px 0 24px;
       color: var(--texto-suave);
       font-size: 0.93rem;
       line-height: 1.6;
     }
 
+    .campo-etiqueta {
+      display: block;
+      margin-bottom: 8px;
+      color: #b8c9dc;
+      font-size: 0.78rem;
+      font-weight: 650;
+    }
+
+    .campo-titulo {
+      width: 100%;
+      min-height: 48px;
+      margin-bottom: 22px;
+      padding: 12px 14px;
+      color: var(--texto);
+      background: rgba(4, 14, 26, 0.68);
+      border: 1px solid rgba(117, 158, 196, 0.24);
+      border-radius: 12px;
+      font: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .campo-titulo::placeholder {
+      color: #71869d;
+    }
+
+    .campo-titulo:focus {
+      border-color: var(--cian);
+      box-shadow: 0 0 0 3px rgba(82, 228, 245, 0.12);
+    }
+
     .marco-contador {
-      position: relative;
       margin-bottom: 22px;
       padding: 22px;
       text-align: center;
@@ -195,7 +222,7 @@
       letter-spacing: -0.06em;
       font-variant-numeric: tabular-nums;
       text-shadow: 0 0 34px rgba(82, 228, 245, 0.22);
-      transition: color 180ms ease, transform 180ms ease;
+      transition: color 180ms ease;
     }
 
     #contador.negativo {
@@ -229,7 +256,11 @@
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease;
+      transition:
+        transform 150ms ease,
+        box-shadow 150ms ease,
+        background 150ms ease,
+        border-color 150ms ease;
     }
 
     button:hover {
@@ -271,7 +302,7 @@
       border-color: rgba(141, 190, 220, 0.34);
     }
 
-    .borrar {
+    .reiniciar {
       grid-column: 1 / -1;
       min-height: 46px;
       color: #ffb2bf;
@@ -280,7 +311,7 @@
       font-size: 0.82rem;
     }
 
-    .borrar:hover {
+    .reiniciar:hover {
       background: rgba(106, 42, 66, 0.52);
       border-color: rgba(255, 130, 150, 0.42);
       box-shadow: 0 8px 22px rgba(255, 77, 116, 0.1);
@@ -323,7 +354,6 @@
       *,
       *::before,
       *::after {
-        scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
       }
     }
@@ -342,10 +372,23 @@
       <span class="estado">Contador activo</span>
     </header>
 
-    <section class="tarjeta" aria-labelledby="titulo">
+    <section class="tarjeta" aria-labelledby="tituloEvento">
       <p class="sobrelinea">Registro en vivo</p>
-      <h1 id="titulo">Contador de eventos</h1>
-      <p class="descripcion">Registra la actividad del evento sumando o restando clicks. El conteo puede ser positivo o negativo.</p>
+      <h1 id="tituloEvento">Contador de eventos</h1>
+      <p class="descripcion">
+        Registra la actividad del evento sumando o restando clicks.
+        El conteo puede ser positivo o negativo.
+      </p>
+
+      <label class="campo-etiqueta" for="entradaTitulo">Título del evento</label>
+      <input
+        class="campo-titulo"
+        id="entradaTitulo"
+        type="text"
+        placeholder="Escribe el nombre del evento"
+        maxlength="80"
+        autocomplete="off"
+      >
 
       <div class="marco-contador">
         <span class="etiqueta-contador">Clicks registrados</span>
@@ -362,14 +405,14 @@
           <span class="icono-boton" aria-hidden="true">−</span>
           Restar click
         </button>
-        <button class="borrar" id="botonBorrar" type="button">
+        <button class="reiniciar" id="botonReiniciar" type="button">
           Reiniciar contador
         </button>
       </div>
 
       <p class="pie-tarjeta">
         <span aria-hidden="true">ⓘ</span>
-        Reiniciar contador devuelve el valor a cero y pide confirmación.
+        Reiniciar devuelve el valor a cero y pide confirmación.
       </p>
     </section>
   </main>
@@ -379,6 +422,17 @@
 
     const contador = document.getElementById("contador");
     const mensaje = document.getElementById("mensaje");
+    const entradaTitulo = document.getElementById("entradaTitulo");
+    const tituloEvento = document.getElementById("tituloEvento");
+
+    entradaTitulo.addEventListener("input", () => {
+      const titulo = entradaTitulo.value.trim();
+
+      tituloEvento.textContent = titulo || "Contador de eventos";
+      document.title = titulo
+        ? `${titulo} | Colegio Bolívar`
+        : "Contador de eventos | Colegio Bolívar";
+    });
 
     function actualizarContador(texto) {
       contador.textContent = clicks;
@@ -396,7 +450,7 @@
       actualizarContador("Click restado");
     });
 
-    document.getElementById("botonBorrar").addEventListener("click", () => {
+    document.getElementById("botonReiniciar").addEventListener("click", () => {
       if (confirm("¿Quieres reiniciar el contador a cero?")) {
         clicks = 0;
         actualizarContador("Contador reiniciado");
